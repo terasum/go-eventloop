@@ -1,6 +1,6 @@
 package main
 
-import "tinycq.com/eventLoop/event"
+import "github.com/terasum/go-eventloop/event"
 import "fmt"
 import "time"
 
@@ -9,7 +9,6 @@ type tickEventHandler struct {
 
 func (tickEH *tickEventHandler) ProcessEvent(msg *event.Massage) {
 	fmt.Printf(" %s = %s \n", msg.Content, msg.Time)
-
 }
 
 type helloEventHandler struct {
@@ -35,14 +34,15 @@ func main() {
 				Content: "tick",
 				Time:    now,
 			}
-			eventManager.Mchan <- massage
 
+			eventManager.Post(massage)
 			massage2 := event.Massage{
 				MsgType: "hello",
 				Content: "tick",
 				Time:    now,
 			}
-			eventManager.Mchan <- massage2
+			eventManager.Post(massage2)
+
 		}
 
 	}()
